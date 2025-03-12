@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix India - Watch TV Shows Online, Watch Movies Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="netflix logo.png">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="netflix logo.png" alt="Netflix Logo" class="netflix-logo">
+        </div>
+        <div class="navbar-nav">
+            <select class="language-select">
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+            </select>
+            <button class="signin-button">Sign In</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Unlimited movies, TV shows and more</h1>
+            <h2>Watch anywhere. Cancel anytime.</h2>
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
+            <div class="email-signup">
+                <input type="email" placeholder="Email address">
+                <button class="get-started">Get Started <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <div class="hero-shadow"></div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <div class="feature-text">
+                <h2>Enjoy on your TV</h2>
+                <p>Watch on Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+            </div>
+            <div class="feature-media">
+                <img src="images/tv.png" alt="TV">
+                <video class="feature-video" autoplay playsinline muted loop>
+                    <source src="videos/video-tv.m4v" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-text">
+                <h2>Download your shows to watch offline</h2>
+                <p>Save your favorites easily and always have something to watch.</p>
+            </div>
+            <div class="feature-media">
+                <img src="images/mobile.jpg" alt="Mobile">
+                <div class="download-animation">
+                    <img src="images/boxshot.png" alt="Stranger Things">
+                    <div class="download-text">
+                        <div class="download-title">Stranger Things</div>
+                        <div class="download-subtitle">Downloading...</div>
+                    </div>
+                    <img src="images/download-icon.gif" alt="Download" class="download-icon">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">
+                    What is Netflix?
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="faq-answer">
+                    Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.
+                </div>
+            </div>
+            <!-- More FAQ items will be added dynamically via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Questions? Call 000-800-919-1694</p>
+        <div class="footer-cols">
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Investor Relations</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Speed Test</a></li>
+            </ul>
+            <ul>
+                <li><a href="#">Help Centre</a></li>
+                <li><a href="#">Jobs</a></li>
+                <li><a href="#">Cookie Preferences</a></li>
+                <li><a href="#">Legal Notices</a></li>
+            </ul>
+            <ul>
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Ways to Watch</a></li>
+                <li><a href="#">Corporate Information</a></li>
+                <li><a href="#">Only on Netflix</a></li>
+            </ul>
+            <ul>
+                <li><a href="#">Media Centre</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <select class="language-select">
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+        </select>
+        <p class="footer-country">Netflix India</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

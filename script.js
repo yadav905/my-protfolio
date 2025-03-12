@@ -1,68 +1,107 @@
-// Smooth scrolling for navigation links
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        document.querySelector(targetId).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Add animation class to skills cards when they come into view
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.skill-card').forEach(card => {
-    observer.observe(card);
-});
-
-// Form submission handling
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Add your form submission logic here
-        alert('Thank you for your message! I will get back to you soon.');
-        this.reset();
-    });
-}
-
-// Add parallax effect to profile image
+// Navbar background change on scroll
 window.addEventListener('scroll', () => {
-    const profileImage = document.querySelector('.profile-image');
-    if (profileImage) {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * 0.05;
-        profileImage.style.transform = `translateY(${rate}px)`;
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
     }
 });
 
-// Mobile menu toggle (for responsive design)
-const createMobileMenu = () => {
-    const nav = document.querySelector('nav');
-    const mobileMenuBtn = document.createElement('button');
-    mobileMenuBtn.className = 'mobile-menu-btn';
-    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    
-    mobileMenuBtn.addEventListener('click', () => {
-        nav.querySelector('ul').classList.toggle('show');
-    });
-    
-    nav.appendChild(mobileMenuBtn);
-};
+// FAQ Accordion
+const faqQuestions = document.querySelectorAll('.faq-question');
 
-// Initialize mobile menu
-if (window.innerWidth <= 768) {
-    createMobileMenu();
+faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+            const icon = item.querySelector('i');
+            icon.classList.remove('fa-minus');
+            icon.classList.add('fa-plus');
+        });
+
+        // Open clicked FAQ item if it wasn't active
+        if (!isActive) {
+            faqItem.classList.add('active');
+            const icon = question.querySelector('i');
+            icon.classList.remove('fa-plus');
+            icon.classList.add('fa-minus');
+        }
+    });
+});
+
+// Email validation and form submission
+const emailForm = document.querySelector('.email-signup');
+const emailInput = emailForm.querySelector('input');
+const getStartedButton = emailForm.querySelector('.get-started');
+
+getStartedButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    
+    if (validateEmail(email)) {
+        // Here you would typically handle the form submission
+        alert('Thank you for your interest! This is a clone website for demonstration purposes.');
+        emailInput.value = '';
+    } else {
+        alert('Please enter a valid email address.');
+        emailInput.focus();
+    }
+});
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
 }
 
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
+// Dynamic FAQ content
+const faqList = document.querySelector('.faq-list');
+const additionalFaqs = [
+    {
+        question: 'How much does Netflix cost?',
+        answer: 'Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from ₹149 to ₹649 a month. No extra costs, no contracts.'
+    },
+    {
+        question: 'Where can I watch?',
+        answer: 'Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app.'
+    },
+    {
+        question: 'How do I cancel?',
+        answer: 'Netflix is flexible. There are no annoying contracts and no commitments. You can easily cancel your account online in two clicks. There are no cancellation fees – start or stop your account anytime.'
+    },
+    {
+        question: 'What can I watch on Netflix?',
+        answer: 'Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.'
+    }
+];
+
+// Add additional FAQs dynamically
+additionalFaqs.forEach(faq => {
+    const faqItem = document.createElement('div');
+    faqItem.className = 'faq-item';
+    faqItem.innerHTML = `
+        <button class="faq-question">
+            ${faq.question}
+            <i class="fas fa-plus"></i>
+        </button>
+        <div class="faq-answer">
+            ${faq.answer}
+        </div>
+    `;
+    faqList.appendChild(faqItem);
 });
+
+// Language selection
+const languageSelects = document.querySelectorAll('.language-select');
+languageSelects.forEach(select => {
+    select.addEventListener('change', (e) => {
+        const language = e.target.value;
+        // Here you would typically handle language change
+        // For demo purposes, we'll just show an alert
+        alert(`Language changed to ${language === 'en' ? 'English' : 'हिंदी'}`);
+    });
+}); 

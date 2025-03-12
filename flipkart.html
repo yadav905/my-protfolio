@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #2874f0;
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            max-width: 1248px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .explore {
+            font-size: 11px;
+            color: white;
+            font-style: italic;
+        }
+
+        .explore span {
+            color: #ffe500;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+        }
+
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 2px;
+            padding: 6px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0 10px;
+        }
+
+        .search-btn {
+            color: #2874f0;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-btn {
+            padding: 5px 40px;
+            background: white;
+            color: #2874f0;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Categories Section */
+        .categories {
+            max-width: 1248px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .category-list {
+            display: flex;
+            justify-content: space-between;
+            overflow-x: auto;
+            padding: 15px 0;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            padding: 0 20px;
+            min-width: 120px;
+        }
+
+        .category-item img {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 8px;
+            object-fit: contain;
+        }
+
+        .category-item span {
+            text-align: center;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        /* Products Grid */
+        .products {
+            max-width: 1248px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: center;
+            transition: box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-title {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .product-price {
+            color: #388e3c;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .search-container {
+                order: 3;
+                max-width: 100%;
+                margin: 10px 0;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .login-btn {
+                padding: 5px 20px;
+            }
+
+            .category-list {
+                justify-content: start;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        /* Add new styles */
+        .carousel {
+            max-width: 1248px;
+            margin: 20px auto;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+            background: #f1f3f6;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            width: 47px;
+            height: 104px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .carousel-control:hover {
+            opacity: 1;
+        }
+
+        .carousel-prev {
+            left: 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .carousel-next {
+            right: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .deals-header {
+            max-width: 1248px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .deals-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .view-all-btn {
+            padding: 10px 20px;
+            background: #2874f0;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .product-card {
+            position: relative;
+            padding: 15px;
+        }
+
+        .product-rating {
+            background: #388e3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .product-discount {
+            color: #388e3c;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+
+        .footer {
+            background: #172337;
+            color: white;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1248px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-column h4 {
+            color: #878787;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin: 8px 0;
+        }
+
+        .footer-column ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        /* Add Login Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background: #fff;
+            width: 90%;
+            max-width: 700px;
+            margin: 20px auto;
+            border-radius: 4px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .login-details {
+            padding: 40px 35px;
+            width: 60%;
+        }
+
+        .login-image {
+            background: #2874f0;
+            width: 40%;
+            padding: 40px 35px;
+            color: white;
+        }
+
+        .login-image h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .login-image p {
+            font-size: 18px;
+            line-height: 150%;
+            color: #dbdbdb;
+        }
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 15px;
+            color: #888;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #e0e0e0;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            border-color: #2874f0;
+        }
+
+        .terms {
+            font-size: 12px;
+            color: #878787;
+            margin-bottom: 20px;
+        }
+
+        .login-btn-modal {
+            background: #fb641b;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .or-separator {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .or-separator::before,
+        .or-separator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .or-separator::before {
+            left: 0;
+        }
+
+        .or-separator::after {
+            right: 0;
+        }
+
+        .request-otp {
+            background: white;
+            color: #2874f0;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .create-account {
+            color: #2874f0;
+            text-align: center;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .google-login-btn {
+            background: white;
+            color: #2874f0;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .google-login-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .otp-input {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #recaptcha-container {
+            margin: 20px 0;
+        }
+
+        .user-profile {
+            display: none;
+            color: white;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .logout-btn {
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="#" class="logo">Flipkart</a>
+                <span class="explore">Explore <span>Plus</span></span>
+            </div>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Search for products, brands and more">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-links">
+                <button class="login-btn">Login</button>
+                <a href="#">Become a Seller</a>
+                <a href="#">More</a>
+                <a href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add Carousel -->
+    <div class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/0735712fe84c602d.jpg" alt="Offer 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/84ae27f93c14a4e3.jpg" alt="Offer 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/5f478a106d047aba.jpg" alt="Offer 3">
+            </div>
+        </div>
+        <button class="carousel-control carousel-prev">❮</button>
+        <button class="carousel-control carousel-next">❯</button>
+    </div>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="category-list">
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/47e5c31ef7dcce1e.png" alt="Top Offers">
+                <span>Top Offers</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/d47e280551670c5f.png" alt="Grocery">
+                <span>Grocery</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/5fdd56c9c9002a30.png" alt="Mobile">
+                <span>Mobile</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/e4b3785e6c384c1e.png" alt="Fashion">
+                <span>Fashion</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/fe2a5da6f49f6b3b.png" alt="Electronics">
+                <span>Electronics</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/f8928124c04bc6e9.png" alt="Home">
+                <span>Home</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/0d7278abbff8ba2a.png" alt="Appliances">
+                <span>Appliances</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/a84e58e11c8b10c6.png" alt="Travel">
+                <span>Travel</span>
+            </a>
+            <a href="#" class="category-item">
+                <img src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/05d708653beff580.png" alt="Beauty">
+                <span>Beauty</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Add Deals Section -->
+    <div class="deals-header">
+        <h2 class="deals-title">Deals of the Day</h2>
+        <button class="view-all-btn">VIEW ALL</button>
+    </div>
+
+    <!-- Products -->
+    <section class="products">
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be added dynamically via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Add Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="login-image">
+                <h2>Login</h2>
+                <p>Get access to your Orders, Wishlist and Recommendations</p>
+            </div>
+            <div class="login-details">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Enter Email/Mobile number">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Enter Password">
+                </div>
+                <div id="recaptcha-container"></div>
+                <div class="otp-input">
+                    <input type="text" id="otp-code" placeholder="Enter OTP">
+                </div>
+                <p class="terms">By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</p>
+                <button class="login-btn-modal">Login</button>
+                <button class="google-login-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+                    Continue with Google
+                </button>
+                <div class="or-separator">OR</div>
+                <button class="request-otp">Request OTP</button>
+                <p class="create-account">New to Flipkart? Create an account</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-app.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-app.appspot.com",
+            messagingSenderId: "your-sender-id",
+            appId: "your-app-id"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Login Modal Functionality with Firebase
+        const modal = document.getElementById('loginModal');
+        const loginBtn = document.querySelector('.login-btn');
+        const closeBtn = document.querySelector('.close');
+        const modalLoginBtn = document.querySelector('.login-btn-modal');
+        const createAccountBtn = document.querySelector('.create-account');
+        const requestOtpBtn = document.querySelector('.request-otp');
+        const googleLoginBtn = document.querySelector('.google-login-btn');
+        const otpInput = document.querySelector('.otp-input');
+        let confirmationResult = null;
+
+        // Setup reCAPTCHA
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+            'size': 'normal',
+            'callback': (response) => {
+                // reCAPTCHA solved
+            }
+        });
+
+        // Email/Password Login
+        modalLoginBtn.addEventListener('click', async () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(username, password);
+                alert('Login successful!');
+                modal.style.display = 'none';
+                updateUIAfterLogin(userCredential.user);
+            } catch (error) {
+                alert('Login failed: ' + error.message);
+            }
+        });
+
+        // Google Login
+        googleLoginBtn.addEventListener('click', async () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                const result = await auth.signInWithPopup(provider);
+                alert('Google login successful!');
+                modal.style.display = 'none';
+                updateUIAfterLogin(result.user);
+            } catch (error) {
+                alert('Google login failed: ' + error.message);
+            }
+        });
+
+        // Phone OTP Login
+        requestOtpBtn.addEventListener('click', async () => {
+            const phoneNumber = document.getElementById('username').value;
+            if (!phoneNumber) {
+                alert('Please enter a phone number');
+                return;
+            }
+
+            try {
+                confirmationResult = await auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier);
+                otpInput.style.display = 'block';
+                alert('OTP sent successfully!');
+            } catch (error) {
+                alert('Error sending OTP: ' + error.message);
+            }
+        });
+
+        // Verify OTP
+        document.getElementById('otp-code').addEventListener('keyup', async (e) => {
+            if (e.target.value.length === 6) {
+                try {
+                    const result = await confirmationResult.confirm(e.target.value);
+                    alert('Phone authentication successful!');
+                    modal.style.display = 'none';
+                    updateUIAfterLogin(result.user);
+                } catch (error) {
+                    alert('Invalid OTP');
+                }
+            }
+        });
+
+        // Update UI after login
+        function updateUIAfterLogin(user) {
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.style.display = 'none';
+            
+            const userProfile = document.createElement('div');
+            userProfile.className = 'user-profile';
+            userProfile.innerHTML = `
+                <img src="${user.photoURL || 'https://via.placeholder.com/30'}" alt="Profile">
+                <span>${user.displayName || user.email || user.phoneNumber}</span>
+                <button class="logout-btn">Logout</button>
+            `;
+            
+            loginBtn.parentNode.insertBefore(userProfile, loginBtn);
+            
+            // Add logout functionality
+            document.querySelector('.logout-btn').addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    userProfile.remove();
+                    loginBtn.style.display = 'block';
+                });
+            });
+        }
+
+        // Check auth state
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                updateUIAfterLogin(user);
+            }
+        });
+
+        // Sample product data with categories
+        const products = {
+            "top_offers": [
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/mobile/k/w/k/-original-imagg2abzhxjckxu.jpeg",
+                    title: "Samsung Galaxy F54 5G",
+                    price: "₹27,999",
+                    rating: "4.3 ★",
+                    desc: "8GB RAM | 256GB Storage",
+                    discount: "30% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/television/j/f/g/-original-imagtve3rhzjbngr.jpeg",
+                    title: "realme Smart TV Neo",
+                    price: "₹11,999",
+                    rating: "4.1 ★",
+                    desc: "32 inch HD Ready LED TV",
+                    discount: "45% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/computer/q/e/z/-original-imagpxgqesgrthks.jpeg",
+                    title: "ASUS Vivobook 15",
+                    price: "₹32,990",
+                    rating: "4.3 ★",
+                    desc: "Intel Core i3 12th Gen",
+                    discount: "38% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/smartwatch/y/l/g/-original-imagrg4azyvwqg6h.jpeg",
+                    title: "Noise ColorFit Pro 4",
+                    price: "₹2,999",
+                    rating: "4.2 ★",
+                    desc: "1.85\" Display Smartwatch",
+                    discount: "25% off"
+                }
+            ],
+            "grocery": [
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/rice/0/8/p/-original-imagkx7tfga4ffpm.jpeg",
+                    title: "Fortune Basmati Rice",
+                    price: "₹399",
+                    rating: "4.4 ★",
+                    desc: "5kg Premium Rice",
+                    discount: "15% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/pulses/w/f/q/-original-imagq59hhvhdn2hz.jpeg",
+                    title: "Tata Sampann Toor Dal",
+                    price: "₹169",
+                    rating: "4.2 ★",
+                    desc: "1kg Premium Dal",
+                    discount: "20% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/tea/s/g/j/-original-imagp2wekzmzfh3k.jpeg",
+                    title: "Tata Gold Tea Premium",
+                    price: "₹599",
+                    rating: "4.4 ★",
+                    desc: "1kg Tea Powder",
+                    discount: "15% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/edible-oil/9/v/x/-original-imaghyqzqr4uwbyg.jpeg",
+                    title: "Fortune Oil",
+                    price: "₹199",
+                    rating: "4.2 ★",
+                    desc: "1L Refined Oil",
+                    discount: "20% off"
+                }
+            ],
+            "mobile": [
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/mobile/b/u/f/-original-imaghxa5hvapbfds.jpeg",
+                    title: "Apple iPhone 14",
+                    price: "₹69,999",
+                    rating: "4.6 ★",
+                    desc: "128GB, Blue",
+                    discount: "12% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/mobile/2/p/8/-original-imagg2a4rmk94gay.jpeg",
+                    title: "Samsung Galaxy S23",
+                    price: "₹74,999",
+                    rating: "4.5 ★",
+                    desc: "256GB, Phantom Black",
+                    discount: "15% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/mobile/2/r/r/-original-imagmgg6czzghjuf.jpeg",
+                    title: "OnePlus 11 5G",
+                    price: "₹56,999",
+                    rating: "4.4 ★",
+                    desc: "8GB RAM, Titan Black",
+                    discount: "10% off"
+                }
+            ],
+            "fashion": [
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/shoe/g/i/g/-original-imagzry3gugpvqty.jpeg",
+                    title: "Nike Revolution Shoes",
+                    price: "₹3,999",
+                    rating: "4.3 ★",
+                    desc: "Men's Running Shoes",
+                    discount: "40% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/t-shirt/t/q/i/-original-imagq2q49hu5kvqy.jpeg",
+                    title: "Men's Cotton T-Shirt",
+                    price: "₹499",
+                    rating: "4.1 ★",
+                    desc: "Pure Cotton, Sky Blue",
+                    discount: "50% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/jean/z/n/u/32-mj-bk-pl-48-comfits-original-imagqy7cyxukomkk.jpeg",
+                    title: "Men's Slim Fit Jeans",
+                    price: "₹899",
+                    rating: "4.2 ★",
+                    desc: "Dark Blue Denim",
+                    discount: "55% off"
+                }
+            ],
+            "electronics": [
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/headphone/a/s/h/-original-imaghxgnjdqegtsg.jpeg",
+                    title: "boAt Airdopes 141",
+                    price: "₹1,499",
+                    rating: "4.3 ★",
+                    desc: "42H Playback TWS",
+                    discount: "60% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/computer/h/k/z/-original-imagtucmkuwggzyp.jpeg",
+                    title: "HP Pavilion Laptop",
+                    price: "₹49,999",
+                    rating: "4.4 ★",
+                    desc: "11th Gen i5, 16GB RAM",
+                    discount: "25% off"
+                },
+                {
+                    image: "https://rukminim1.flixcart.com/image/400/400/xif0q/tablet/p/f/w/-original-imagkjwrxgbhrhsr.jpeg",
+                    title: "Samsung Galaxy Tab S6",
+                    price: "₹29,999",
+                    rating: "4.5 ★",
+                    desc: "10.4 inch, 64GB, WiFi",
+                    discount: "20% off"
+                }
+            ]
+        };
+
+        // Function to render products based on category
+        function renderProducts(category = 'all') {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = ''; // Clear existing products
+
+            if (category === 'all') {
+                // Show all products
+                Object.values(products).forEach(categoryProducts => {
+                    categoryProducts.forEach(product => {
+                        addProductToGrid(product);
+                    });
+                });
+            } else {
+                // Show category specific products
+                products[category].forEach(product => {
+                    addProductToGrid(product);
+                });
+            }
+        }
+
+        // Helper function to add product to grid
+        function addProductToGrid(product) {
+            const productsGrid = document.getElementById('productsGrid');
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.title}">
+                <h3 class="product-title">${product.title}</h3>
+                <p class="product-desc">${product.desc || ''}</p>
+                <div>
+                    <span class="product-price">${product.price}</span>
+                    <span class="product-discount">${product.discount || ''}</span>
+                </div>
+                ${product.rating ? `<div class="product-rating">${product.rating}</div>` : ''}
+            `;
+            productsGrid.appendChild(productCard);
+        }
+
+        // Initialize the page with all products
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts('all');
+
+            // Add click handlers for category items
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const categoryText = item.querySelector('span').textContent.toLowerCase().replace(' ', '_');
+                    renderProducts(categoryText);
+                });
+            });
+
+            // Carousel functionality
+            const carousel = document.querySelector('.carousel-inner');
+            const items = document.querySelectorAll('.carousel-item');
+            let currentSlide = 0;
+            let isTransitioning = false;
+
+            function moveToSlide(slideIndex) {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                currentSlide = slideIndex;
+                carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 500);
+            }
+
+            document.querySelector('.carousel-next').addEventListener('click', () => {
+                moveToSlide((currentSlide + 1) % items.length);
+            });
+
+            document.querySelector('.carousel-prev').addEventListener('click', () => {
+                moveToSlide((currentSlide - 1 + items.length) % items.length);
+            });
+
+            // Auto-slide with proper timing and transition
+            let autoSlideInterval = setInterval(() => {
+                moveToSlide((currentSlide + 1) % items.length);
+            }, 5000);
+
+            // Pause auto-slide when user interacts
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                autoSlideInterval = setInterval(() => {
+                    moveToSlide((currentSlide + 1) % items.length);
+                }, 5000);
+            });
+
+            // Search functionality
+            const searchInput = document.querySelector('.search-box input');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const productCards = document.querySelectorAll('.product-card');
+                
+                productCards.forEach(card => {
+                    const title = card.querySelector('.product-title').textContent.toLowerCase();
+                    if (title.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Login Modal Functionality
+            loginBtn.addEventListener('click', () => {
+                modal.style.display = 'block';
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <!-- Add Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>ABOUT</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Flipkart Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>HELP</h4>
+                <ul>
+                    <li><a href="#">Payments</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>CONSUMER POLICY</h4>
+                <ul>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>SOCIAL</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
